@@ -2,6 +2,8 @@ import Gio from "gi://Gio";
 import GLib from "gi://GLib?version=2.0";
 import Gtk from "gi://Gtk?version=4.0";
 import { exec } from "ags/process";
+import { mediaService, MediaPayload } from "./../../media_data";
+
 
 const PATH_PAUSE = "player_popup/images/pause_media.svg";
 const PATH_PLAY = "player_popup/images/test.svg";
@@ -17,20 +19,40 @@ export default function ButtonPlayer(){
     imageNext.set_pixel_size(size_icone);
     imagePrevious.set_pixel_size(size_icone);
     let statusLabel = new Gtk.Label({label : "Paused"});
-    let proc : Gio.Subprocess = launch_listener();
-    proc.init(null)
+    // let proc : Gio.Subprocess = launch_listener();
+    // proc.init(null)
 
-    let stream : Gio.DataInputStream = launch_data(proc);
+    // let stream : Gio.DataInputStream = launch_data(proc);
     
-    const sleep = (ms: number): Promise<void> => {
-        return new Promise((resolve) => setTimeout(resolve, ms));
-    };
-    readLine(stream, statusLabel, imageWidget);
+    // const sleep = (ms: number): Promise<void> => {
+    //     return new Promise((resolve) => setTimeout(resolve, ms));
+    // };
+    // readLine(stream, statusLabel, imageWidget);
+
+    mediaService.connect("changed", (_, data : MediaPayload) => {
+        // console.log(data);
+
+        const status = data.status;
+
+        statusLabel.set_label(status || "Paused");
+
+        if (statusLabel.get_label() === "Stopped"){
+            imageWidget.set_from_file(PATH_PLAY)
+        }
+
+        if (statusLabel.get_label() === "Paused"){
+            imageWidget.set_from_file(PATH_PLAY)
+        }
+        else if (statusLabel.get_label() === "Playing"){
+            imageWidget.set_from_file(PATH_PAUSE)
+        }
+
+    })
 
     const togglePlay = async() => {
         try {
             GLib.spawn_command_line_sync("playerctl play-pause");
-            await sleep(100)
+            // await sleep(100)
             // readLine(stream, statusLabel, imageWidget);
         }catch (e){
             console.error("Erreur player-pause",e );

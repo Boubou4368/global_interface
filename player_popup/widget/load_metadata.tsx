@@ -47,7 +47,7 @@ export default function DynamicPlayer() {
 
     // Connexion propre au service typé
     mediaService.connect("changed", (_, data: MediaPayload) => {
-        console.log("[DynamicPlayer] Données reçues :", data);
+        // console.log("[DynamicPlayer] Données reçues :", data);
 
         const title = data.title;
         const artist = data.artist;
