@@ -1,0 +1,278 @@
+
+* {
+    border: none;
+    border-radius: 0;
+    /*font-family: Roboto, Helvetica, Arial, sans-serif;*/
+    /* font-family: "SF Pro Display","JetBrainsMono Nerd Font Propo"; */
+
+    /*Obligatoire*/
+    /* min-height: 0px; */
+    margin : 0px;
+    padding : 0px;
+    /* border : solid 1px red */
+}
+window {
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+}
+/*
+* status bar
+*/
+.top_bar {
+    background: none;
+    margin-top: 5px;
+}
+
+/* 
+ * WORKSPACE
+*/
+.workspaces-area {
+    background: rgba(49, 45, 52, 0.625);
+    margin-left: 5px;
+    padding : 0 5px;
+    /* padding-left: 5px;
+    padding-right: 5px; */
+    border-radius: 15px;
+}
+.box-circle {
+    background: none;
+}
+
+/* Base commune (couleur et bords ronds) */
+.workspace-item-single,
+.workspace-item-multi {
+    background: rgba(240, 248, 255, 0.442);
+    border-radius: 9999px;
+    min-height: 24px; /* Hauteur de référence */
+    margin: 8px 3px;
+    color : #323232;
+}
+.workspace-item-single:hover,
+.workspace-item-multi:hover {
+    border : solid 1px rgb(240, 248, 255);
+    margin: 7px 2px;
+}
+.active {
+    background-color: #27352A;
+    color : aliceblue;
+    border : solid 0.7px aliceblue;
+    margin: 7px 2px;
+}
+
+/* Mode 1 icône ou vide : Cercle parfait */
+.workspace-item-single {
+    min-width: 24px; /* Largeur = Hauteur */
+    padding: 0px;      /* AUCUN padding horizontal pour ne pas déformer le cercle */
+    /* padding-left:8px ; */
+}
+
+
+/* Mode plusieurs icônes : Pilule allongée */
+.workspace-item-multi {
+    min-width: 30px;
+    padding: 0 12px; /* On ajoute de l'espace sur les bords gauche/droite */
+}
+
+/* Optionnel : Rendre le pipe un peu plus discret */
+.separator {
+    color: rgba(255, 255, 255, 0.4); /* Transparence pour le | */
+    font-size: 22px;
+    /* font-family: "SF Pro Display","JetBrainsMono Nerd Font Propo"; */
+    font-weight: 1000;
+    margin-top: -1px;
+    color : aliceblue;
+}
+
+/* Ajustement global des icônes */
+.workspace-item-single label,
+.workspace-item-multi label {
+    font-size: 14px;
+}
+
+
+/* 
+* APP NAME
+*/
+
+.label-area {
+    background: rgba(49, 45, 52, 0.625);
+    border-radius: 15px;
+    min-height: 42px; /* Hauteur de référence */
+    padding : 0px 70px;
+    color : aliceblue;
+    transition: all 0.7s ease;
+}
+/* 
+* INFO
+*/
+.info {
+    background: #312d349f;
+    border-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    min-height: 42px; /* Hauteur de référence */
+    /* padding : 0px 70px; */
+    color : aliceblue;
+}
+.button_system{
+    color: aliceblue;
+    margin : 10px 10px;
+    margin-left: 7px; 
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    padding : 3px 2px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+.button_system:hover{
+    color:rgb(49, 45, 52);
+    transition: all 0.2s ease;
+    background-color: aliceblue;
+    border-color: rgba(240, 248, 255,0.442);
+}
+
+.clock {
+    padding-left:0px ;
+}
+/* .music_player,
+.music_player * {
+    border : solid 1px red; 
+} */
+.music_player {
+    padding-left: 20px;
+}
+.active_app_name{
+    transition: all 2s ease;
+} 
+.spotify {
+/* On force le fond classique à être transparent */
+    background-color: transparent; 
+    
+    /* On crée le halo vert flou */
+background-image: radial-gradient(
+        circle at 57%, 
+        rgba(0, 255, 0, 0.25) 0%, 
+        transparent 75%           
+    ); 
+    
+    /* On s'assure qu'il respecte les mêmes arrondis au cas où il touche les bords */
+    border-radius: 10px; 
+    
+    /* Un peu de padding pour donner de la place au halo autour du texte */
+    padding: 0 15px; 
+    /* margin : 8px 0; */
+
+    /* border: solid 1px rgba(255, 0, 0, 0.85); */
+    transition: all 2s ease;
+    /* border : solid 1px red */
+    /* border : solid 1px blue; */
+
+}
+.youtube {
+/* On force le fond classique à être transparent */
+    background-color: transparent; 
+    
+    /* On crée le halo vert flou */
+background-image: radial-gradient(
+        circle at center, 
+        rgba(154, 46, 46, 0.85)0%, 
+        transparent 75%           
+    ); 
+    
+    /* On s'assure qu'il respecte les mêmes arrondis au cas où il touche les bords */
+    border-radius: 10px; 
+    
+    /* Un peu de padding pour donner de la place au halo autour du texte */
+    padding: 0 15px; 
+    /* margin : 8px 0; */
+
+    /* border: solid 1px rgba(255, 0, 0, 0.85); */
+    transition: all 2s ease;
+
+}
+
+.volume{
+    border: solid 1px red;
+}
+
+/*
+* Volume
+*/
+.main_volume {
+    min-width: 200px;
+    min-height: 50px;
+    background-color: rgba(49, 45, 52, 0.625);
+    border-radius: 13px;
+    padding : 0px 7px;
+}
+.global_box {
+    min-height: 40px;
+    min-width: 180px;
+    /* border : solid 1px red ; */
+}
+
+.volume_empty {
+    background-color: rgba(240, 248, 255, 0.442);
+    min-height: 2px;
+    min-width: 160px;
+    border-radius: 13px;
+    /* border : solid 1px blue */
+}
+.volume_fill {
+    background-color: aliceblue;
+    min-height: 2px;
+    /* min-width: 30px; */
+    border-radius: 13px;
+    transition: all 0.5s ease;
+}
+
+.volume_value {
+    font-size: 14px;
+}
+
+/* 
+* Media player
+*/ 
+.main_media{
+    min-height: 250px;
+    min-width: 250px;
+    color :aliceblue;
+    /* background-color: rgba(49, 45, 52, 0.802); */
+    /* #2c5551ce */
+    background-color: rgba(39, 53, 42, 0.484);
+    border-radius: 7%;
+    padding : 10px;
+}
+
+.image{
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    margin: 25px 60px;
+    padding-bottom: 20px;
+    min-height: 100px;
+    min-width: 100px ;
+    border: solid 1px red;
+}
+.cover-art {
+    border-radius: 12px;
+}
+
+.buttonPlayer {
+    background-color: transparent;
+    padding: 2px;
+    border-radius: 5px;
+}
+.buttonPlayer:hover{
+    background-color: rgba(240, 248, 255, 0.56);
+}
+
+.fs{
+    min-width: 50px;
+}
+
+.title{
+    font-size: 20px;
+    font-weight: 600;
+}
