@@ -3,7 +3,7 @@ import GLib from "gi://GLib";
 import Gio from "gi://Gio";
 import Gdk from "gi://Gdk?version=4.0";
 
-import { mediaService } from "./../../media_data"
+import { mediaService, MediaPayload } from "./../../media_data";
 
 export default function Music_info() {
     const musicLabel = new Gtk.Label({label: "" });
@@ -35,51 +35,27 @@ export default function Music_info() {
 
     musicLabel.add_controller(clickGesture_musicLabel);
 
-    const proc = new Gio.Subprocess({
-        argv: ['/home/boubou/.config/hypr/Scripts/media.sh'],
-        flags: Gio.SubprocessFlags.STDOUT_PIPE,
-    });
-    proc.init(null);
+    mediaService.connect('changed', (_,data : MediaPayload) => {
+        let text = data.text;
+        let status = data.status;
+        const classe_player = data.class;
+        neonBox.set_css_classes([classe_player]);
 
-    const stream = new Gio.DataInputStream({
-        base_stream: proc.get_stdout_pipe(),
-    });
+        musicLabel.set_label(text || "");
+        if (status === "Playing"){
+            // console.log("ca joue ");
+            image_player_status.set_from_icon_name("playing-symbolic")
+        }else if (status === "Paused"){
+            // console.log("sur pause");
+            image_player_status.set_from_icon_name("paused-symbolic")
+        }else if (status === "Stopped") {
+            // console.log("fermé");
+            image_player_status.set_from_icon_name(null);
 
-    const readLine = () => {
-        stream.read_line_async(GLib.PRIORITY_DEFAULT, null, (source, res) => {
-            try {
-                // console.log(source.read_line_finish_utf8(res))
-                const [line] = source.read_line_finish_utf8(res);
-                // console.log(line);
-                if (line !== null) {
-                    const jsonObject = JSON.parse(line);
-                    let text = jsonObject.text;
-                    let status = jsonObject.status;
-                    const classe_player = jsonObject.class;
-                    neonBox.set_css_classes([classe_player]);
-
-                    musicLabel.set_label(text || "");
-                    if (status === "Playing"){
-                        // console.log("ca joue ");
-                        image_player_status.set_from_icon_name("playing-symbolic")
-                    }else if (status === "Paused"){
-                        // console.log("sur pause");
-                        image_player_status.set_from_icon_name("paused-symbolic")
-                    }else if (status === "Stopped") {
-                        // console.log("fermé");
-                        image_player_status.set_from_icon_name(null);
-
-                    }else {
-                        console.log("Erreur, aucun status trouvé",status)
-                    }
-                }
-                readLine();
-            } catch (e) {
-                console.error("Erreur de flux :", e);
-            }
-        });
-    };
-    readLine();
+        }else {
+            console.log("Erreur, aucun status trouvé",status)
+        }
+    })
 
     const contentBox = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, spacing: 5 });
     // const volume_labelBox = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, valign: Gtk.Align.CENTER});
