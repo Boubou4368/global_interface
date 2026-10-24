@@ -11,8 +11,8 @@ if (display) {
 
 function get_icon_name(app_class: string,window_name : string): string {
     switch (app_class.toLowerCase()) {
-        case "code-oss":
         case "code":
+        case "com.microsoft.vscode":
             return "vs_code-symbolic";
         case "kitty":
             return "kitty2-symbolic";
